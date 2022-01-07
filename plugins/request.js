@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const request = axios.create({
-  baseURL: 'https://api.realworld.io/'
+  baseURL: 'https://conduit.productionready.io/'
 })
 
 
@@ -25,7 +25,8 @@ export default ({ store }) => {
     return response
   }, function (error) {
     // 对响应错误做点什么
-    const err = error.response.data.errors
+    const err = error.response && error.response.data && error.response.data.errors
+    console.dir(error, 123);
     return err ? Promise.reject(Object.keys(err).map(msg => `${msg} ${err[msg].join('')}`)) : Promise.reject(error)
   })
 }
