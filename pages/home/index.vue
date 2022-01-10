@@ -91,6 +91,9 @@
               <span>Read more...</span>
             </nuxt-link>
           </div>
+          <div class="article-preview" v-if="!articles.length">
+            No articles are here... yet.
+          </div>
           <nav>
             <ul class="pagination">
               <li
@@ -178,6 +181,7 @@ export default {
   },
   methods: {
     checkFavorite(item) {
+      if (!this.user) this.$router.push('/login');
       item.favoriteDisabled = true;
       const fn = item.favorited ? deleteFavorite : addFavorite;
       fn(item.slug).then(() => {
